@@ -1,0 +1,102 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <style>
+            .focused {
+                background: #abcdef;
+            }
+            .pclass {
+                font-family: 'Courier New';
+                font-size: 28px;
+                color: blueviolet;
+            }
+            
+        </style>
+        <script src="../../js/jquery-3.3.1.js"></script>
+    </head>
+    <body>
+        <h1>Header 1</h1>
+        <p>Contents 1</p>
+        <h2>Header 2</h2>
+        <p>Contents 2</p>
+        <button id="run">Run</button>
+        <div style="width: 100;height: 50;background-color:palevioletred">myDiv</div>
+        <div id="content">
+            <input type="text" tabindex="1">
+            <input type="text" tabindex="2">
+            <select name="" id="" tabindex="3">
+                <option value="">select menu</option>
+            </select>
+            <div tabindex="4">
+               a div
+            </div>
+            <div>
+                <p>cat hubery</p>
+                <p>ca liu</p>
+                <p>cat liu</p>
+                <p>c jacky</p>
+                <p>cat jakcy</p>
+            </div>
+            <div>
+                <table>
+                    <tr>
+                        <td>Value 1</td>
+                        <td></td>
+                    </tr>
+                    <tr style="display: none">
+                        <td>Value 2</td>
+                        <td></td>
+                    </tr>
+                </table>
+            </div>
+            <button id="addClassBtn">给div下的p元素添加一个样式class</button>
+            <button id="selectClassBtn">选中checkBox</button>
+            <input type="checkbox" name="newsletter" value="Hot Fuzz"   id="hahah"/>
+            <input type="checkbox" name="newsletter" value="Cold Fusion" />
+            <input id="myBox" type="checkbox" name="accept" value="Evil Plans" />
+        </div>
+        <script>
+            $(':header').css('background','#EEE');
+            $('#run').click(function() {
+                $('div:not(animated)').animate({ width: "+=20" },2000);
+            });
+            //添加一个"focused"的类名给那些有focus方法的元素
+            $('#content').delegate('*','focus blur',function(event) {
+                var elem = $(this);
+                setTimeout(() => {
+                    elem.toggleClass('focused',elem.is(':focus'));
+                }, 0);
+            });
+            $(':root').css('background-color','yellow');
+            //查找所有p标签 包含cat的元素集
+            console.log($('p:contains(cat)'));
+            //查询所有不包含子元素或者文本的空元素
+            console.log($('td:empty'));
+            $('#addClassBtn').click(function() {
+                $('div:has(p)').addClass('pclass');
+            });
+            //查找所有含有子元素或者文本内容的td元素
+            console.log($('td:parent'));
+            //查找隐藏的tr 或者 查找type为hidden的元素
+            console.log($('tr:hidden'));
+            //查找所有可见的tr元素
+            console.log($('tr:visible'));
+            //查找含有id属性的div
+            console.log($('div[id]'));
+            $('#selectClassBtn').click(function() {
+                $('input[name="newsletter"]').attr('checked',true);
+            });
+            //查找name以news开头的input
+            console.log($('input[name^="news"]'));
+            //查找name以letter结尾的input
+            console.log($('input[name$="letter"]'));
+            //查找name包含ept的input
+            console.log($('input[name*="ept"]'));
+            //查找含有id且name包含news的input
+            console.log($('input[id][name*="news"]'));
+            $('#myBox').click(function() {
+                console.log($(this).is(':checked'));
+            });
+        </script>
+    </body>
+</html>
